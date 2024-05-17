@@ -14,7 +14,7 @@ const connectDb = async (): Promise<void> => {
     try {
         const connect = await mongoose.connect(DB);
         console.log(
-            "database connected: ",
+            "💚[database connected]:",
             connect.connection.host,
             connect.connection.name
         );
@@ -28,5 +28,5 @@ const connectDb = async (): Promise<void> => {
 connectDb();
 
 app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
+    console.log(`💚[server]: Server is running at http://localhost:${port}`);
 });

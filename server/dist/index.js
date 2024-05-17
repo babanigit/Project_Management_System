@@ -22,7 +22,7 @@ const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     try {
         const connect = yield mongoose_1.default.connect(DB);
-        console.log("database connected: ", connect.connection.host, connect.connection.name);
+        console.log("💚[database connected]:", connect.connection.host, connect.connection.name);
     }
     catch (error) {
         console.error("failed to connect to the database");
@@ -31,5 +31,5 @@ const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 connectDb();
 app_1.default.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
+    console.log(`💚[server]: Server is running at http://localhost:${port}`);
 });

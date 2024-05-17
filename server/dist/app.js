@@ -33,30 +33,32 @@ const http_errors_1 = __importStar(require("http-errors"));
 // import session from "express-session";
 // import MongoStore from "connect-mongo";
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const path_1 = __importDefault(require("path"));
+const express_graphql_1 = require("express-graphql");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config({ path: "../.env" });
-// import noteRoutes from "./dRoutes/noteRoutes";
-// import userRouter from "./dRoutes/userRoutes";
-// import { VerifySession } from "./middleware/verifySessionCookie";
-const path_1 = __importDefault(require("path"));
-// import  { verifyToken } from "./middleware/verifyJwtCookie";
+const Schema_1 = __importDefault(require("./schema/Schema"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, morgan_1.default)("dev"));
 app.use((0, cookie_parser_1.default)());
 app.use((0, cors_1.default)());
 app.enable('trust proxy');
+app.use("/graphql", (0, express_graphql_1.graphqlHTTP)({
+    schema: Schema_1.default,
+    graphiql: process.env.NODE_ENV === "development"
+}));
 // const dirname = path.resolve();
 const dirname = path_1.default.dirname(path_1.default.resolve());
 // const parentDirname = path.dirname(dirname);
 // const newPath = path.join(parentDirname, path.basename(dirname));
 // console.log(newPath);
-// use the frontend app
-app.use(express_1.default.static(path_1.default.join(dirname, "/client/dist")));
-console.log(dirname);
-app.get('*', (req, res) => {
-    res.sendFile(path_1.default.join(dirname, '/client/dist/index.html'));
-});
+// // use the frontend app
+// app.use(express.static(path.join(dirname, "/client/dist")));
+// console.log(dirname)
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(dirname, '/client/dist/index.html'));
+// });
 app.get("/", (req, res) => {
     res.send("Express + TypeScript Server");
 });
@@ -66,13 +68,18 @@ app.use((res, req, next) => {
 });
 // error handler middleware
 app.use((error, req, res, next) => {
-    console.error(error);
     let errorMessage = "an unknown error occurred";
     let statusCode = 500;
+    let success = false;
+    console.error("👺[error log]:", error);
     if ((0, http_errors_1.isHttpError)(error)) {
         statusCode = error.status;
         errorMessage = error.message;
     }
-    res.status(statusCode).json({ error: errorMessage });
+    res.status(statusCode).json({
+        error: errorMessage,
+        success,
+        statusCode
+    });
 });
 exports.default = app;
