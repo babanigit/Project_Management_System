@@ -1,16 +1,31 @@
 
+import mongoose from "mongoose";
+import app from "./app"
 
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
-
-dotenv.config({ path: "../.env" });
-
-const app: Express = express();
 const port = process.env.PORT || 3000;
 
-app.get("/", (req: Request, res: Response) => {
-    res.send("Express + TypeScript Server");
-});
+const DB: string | undefined = process.env.MONGODB_URI;
+const connectDb = async (): Promise<void> => {
+
+    if (!DB) {
+        throw new Error("Database connection string is not provided. -b");
+    }
+
+    try {
+        const connect = await mongoose.connect(DB);
+        console.log(
+            "database connected: ",
+            connect.connection.host,
+            connect.connection.name
+        );
+
+    } catch (error) {
+        console.error("failed to connect to the database");
+        console.error(error)
+    }
+
+};
+connectDb();
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
