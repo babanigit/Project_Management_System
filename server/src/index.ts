@@ -20,12 +20,13 @@ const connectDb = async (): Promise<void> => {
         );
 
     } catch (error) {
-        console.error("failed to connect to the database");
+        console.error("Failed to connect to the database");
         console.error(error)
     }
 
 };
 connectDb();
+
 
 app.listen(port, () => {
     console.log(`💚[server]: Server is running at http://localhost:${port}`);

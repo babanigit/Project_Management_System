@@ -53,12 +53,14 @@ const dirname = path_1.default.dirname(path_1.default.resolve());
 // const parentDirname = path.dirname(dirname);
 // const newPath = path.join(parentDirname, path.basename(dirname));
 // console.log(newPath);
-// // use the frontend app
-// app.use(express.static(path.join(dirname, "/client/dist")));
-// console.log(dirname)
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(dirname, '/client/dist/index.html'));
-// });
+// routes
+// use the frontend app
+app.use(express_1.default.static(path_1.default.join(dirname, "/client/dist")));
+console.log(dirname);
+app.get('*', (req, res) => {
+    res.sendFile(path_1.default.join(dirname, '/client/dist/index.html'));
+});
+// get
 app.get("/", (req, res) => {
     res.send("Express + TypeScript Server");
 });

@@ -13,23 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const app_1 = __importDefault(require("./app"));
-const port = process.env.PORT || 3000;
 const DB = process.env.MONGODB_URI;
-const connectDb = () => __awaiter(void 0, void 0, void 0, function* () {
-    if (!DB) {
-        throw new Error("Database connection string is not provided. -b");
-    }
+if (!DB) {
+    throw new Error("Database connection string is not provided. -b");
+}
+const dbConnection = (next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const connect = yield mongoose_1.default.connect(DB);
         console.log("💚[database connected]:", connect.connection.host, connect.connection.name);
     }
     catch (error) {
-        console.error("Failed to connect to the database");
-        console.error(error);
+        next(error);
     }
 });
-connectDb();
-app_1.default.listen(port, () => {
-    console.log(`💚[server]: Server is running at http://localhost:${port}`);
-});
+exports.default = dbConnection;

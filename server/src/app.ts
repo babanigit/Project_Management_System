@@ -16,7 +16,6 @@ dotenv.config({ path: "../.env" });
 
 import schema from "./schema/Schema"
 
-
 const app: Express = express();
 
 app.use(express.json());
@@ -31,19 +30,23 @@ app.use("/graphql",graphqlHTTP({
 }))
 
 // const dirname = path.resolve();
-
 const dirname = path.dirname(path.resolve());
 // const parentDirname = path.dirname(dirname);
 // const newPath = path.join(parentDirname, path.basename(dirname));
 // console.log(newPath);
 
-// // use the frontend app
-// app.use(express.static(path.join(dirname, "/client/dist")));
-// console.log(dirname)
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(dirname, '/client/dist/index.html'));
-// });
 
+// routes
+
+
+// use the frontend app
+app.use(express.static(path.join(dirname, "/client/dist")));
+console.log(dirname)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(dirname, '/client/dist/index.html'));
+});
+
+// get
 app.get("/", (req: Request, res: Response) => {
     res.send("Express + TypeScript Server");
 });
