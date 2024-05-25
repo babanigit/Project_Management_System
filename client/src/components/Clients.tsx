@@ -1,17 +1,9 @@
-import { gql, useQuery } from "@apollo/client";
-import ClientRow from "./ClientRow";
+import { useQuery } from "@apollo/client";
+import ClientRow from "./ClientRow"
 import { Key } from "react";
 
-const GET_CLIENT = gql`
-  query getClients {
-    clients {
-      id
-      name
-      email
-      phone
-    }
-  }
-`;
+import { GET_CLIENT } from "../queries/ClientQuery";
+import Spinner from "./Spinner";
 
 export interface IClient {
   id: Key | null | undefined;
@@ -23,7 +15,7 @@ export interface IClient {
 export const Clients = () => {
   const { loading, error, data } = useQuery(GET_CLIENT);
 
-  if (loading) return <div> loading</div>;
+  if (loading) return <Spinner />;
   if (error) return <div>error, something went wrong</div>;
 
   return (
