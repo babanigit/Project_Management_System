@@ -14,7 +14,22 @@ const ClientRow = ({ client }: IProps) => {
 
   const [deleteClient] = useMutation( DELETE_CLIENT,{
     variables:{id:client.id},
-    refetchQueries:[{query:GET_CLIENT}],
+    // refetchQueries:[{query:GET_CLIENT}],
+    update(cache, { data: { deleteClient } }) {
+      const data:
+        | { clients: IClient[] }
+        | null
+        | undefined = cache.readQuery({ query: GET_CLIENT });
+      if (data) {
+        const { clients } = data;
+        cache.writeQuery({
+          query: GET_CLIENT,
+          data: {
+            clients: clients.filter((c) => c.id !== deleteClient.id),
+          },
+        });
+      }
+    },
   } )
 
   const handleDelete = () => {
