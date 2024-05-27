@@ -1,19 +1,20 @@
 import { useQuery } from "@apollo/client";
 import ClientRow from "./ClientRow"
-import { Key } from "react";
+// import { Key } from "react";
 
-import { GET_CLIENT } from "../queries/ClientQuery";
+import { GET_CLIENTS } from "../queries/ClientQuery";
 import Spinner from "./Spinner";
 
 export interface IClient {
-  id: Key | null | undefined;
+  id:  number |string;
+  clientId:number |string
   name: string;
   email: string;
   phone: string;
 }
 
 export const Clients = () => {
-  const { loading, error, data } = useQuery(GET_CLIENT);
+  const { loading, error, data } = useQuery(GET_CLIENTS);
 
   if (loading) return <Spinner />;
   if (error) return <div>error, something went wrong</div>;

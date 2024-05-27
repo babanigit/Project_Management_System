@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_PROJECTS } from "../queries/ProjectQuerys";
+import { GET_PROJECTS } from "../queries/ProjectQuery";
 import { ProjectCard } from "./ProjectCard";
 import Spinner from "./Spinner";
 

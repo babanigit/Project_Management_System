@@ -1,10 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { Link, useParams } from "react-router-dom";
-import { GET_PROJECT } from "../queries/ProjectQuerys";
+import { GET_PROJECT } from "../queries/ProjectQuery";
 import Spinner from "../components/Spinner";
-import { ClientInfo } from "../components/ClientInfo";
-import { EditProjectForm } from "../components/EditProjectForm";
-import { DeleteProjectButton } from "../components/DeleteProjectButton";
+import  ClientInfo  from "../components/ClientInfo";
+import  EditProjectForm  from "../components/EditProjectForm";
+import  DeleteProjectButton  from "../components/DeleteProjectButton";
+import { IClient } from "../components/Clients";
 
 export const ProjectPage = () => {
   const { id } = useParams();
@@ -14,6 +15,10 @@ export const ProjectPage = () => {
 
   if(loading) return <Spinner />
   if(error) return <p>something went wrong</p>
+
+  const client:IClient = data.project.client;
+
+  console.log(client)
 
   return (
     <>
@@ -29,7 +34,7 @@ export const ProjectPage = () => {
           <h5 className='mt-3'>Project Status</h5>
           <p className='lead'>{data.project.status}</p>
 
-          <ClientInfo client={data.project.client} />
+          <ClientInfo client={client} />
 
           <EditProjectForm project={data.project} />
 

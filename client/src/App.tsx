@@ -38,7 +38,6 @@ const App = () => {
           <Header />
           <div className="container">
             <Routes>
-
               <Route path="/" element={<Home />} />
               <Route path="/Projects/:id" element={<ProjectPage />} />
 

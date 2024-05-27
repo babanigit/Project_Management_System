@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { ChangeEvent, useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { ADD_CLIENT } from "../mutations/clientMutations";
-import { GET_CLIENT } from "../queries/ClientQuery";
+import { GET_CLIENTS } from "../queries/ClientQuery";
 
 // Define interface for formData
 interface FormData {
@@ -21,16 +21,18 @@ export const AddClientModel = () => {
       phone: formData.phone,
     },
     update(cache, { data: { addClient } }) {
+
       const { clients } = cache.readQuery<{ clients: unknown[] }>({
-        query: GET_CLIENT,
+        query: GET_CLIENTS,
       }) || { clients: [] };
 
       cache.writeQuery({
-        query: GET_CLIENT,
+        query: GET_CLIENTS,
         data: {
           clients: [...clients, addClient],
         },
       });
+      
     },
   });
 
