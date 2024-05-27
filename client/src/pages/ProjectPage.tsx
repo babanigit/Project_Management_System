@@ -18,6 +18,7 @@ export const ProjectPage = () => {
 
   const client:IClient = data.project.client;
 
+  console.log(data)
   console.log(client)
 
   return (

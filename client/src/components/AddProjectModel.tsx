@@ -13,7 +13,6 @@ export default function AddProjectModal() {
   const [status, setStatus] = useState("new");
 
   const [addProject] = useMutation(ADD_PROJECT, {
-
     variables: { name, description, clientId, status },
 
     update(cache, { data: { addProject } }) {
@@ -41,6 +40,8 @@ export default function AddProjectModal() {
 
   // Get Clients for select
   const { loading, error, data } = useQuery(GET_CLIENTS);
+
+  console.log(data);
 
   const onSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
