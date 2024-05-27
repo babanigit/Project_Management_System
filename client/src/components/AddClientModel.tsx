@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { FaUser } from "react-icons/fa";
 
-import { ADD_CLIENT } from "../mutations/clientMutations";
 
 export const AddClientModel = () => {
   const [formData, setFormData] = useState({});
