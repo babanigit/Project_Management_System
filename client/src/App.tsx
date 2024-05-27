@@ -1,20 +1,21 @@
-import { AddClientModel } from "./components/AddClientModel";
-import { Clients } from "./components/Clients";
 import { Header } from "./components/Header";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { ProjectPage } from "./pages/ProjectPage";
 
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
         clients: {
-          merge(existing, incoming) {
+          merge(_existing, incoming) {
             return incoming;
           },
         },
         projects: {
-          merge(existing, incoming) {
+          merge(_existing, incoming) {
             return incoming;
           },
         },
@@ -33,11 +34,18 @@ const App = () => {
   return (
     <>
       <ApolloProvider client={client}>
-        <Header />
-        <div className="container">
-          <AddClientModel />
-          <Clients />
-        </div>
+        <BrowserRouter>
+          <Header />
+          <div className="container">
+            <Routes>
+
+              <Route path="/" element={<Home />} />
+              <Route path="/Projects/:id" element={<ProjectPage />} />
+
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
       </ApolloProvider>
     </>
   );
