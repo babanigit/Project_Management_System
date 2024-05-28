@@ -1,7 +1,7 @@
 import logo from "../assets/logo.png";
 
 export const Header = () => {
-  return (
+  return ( 
     <div className="navbar bg-light mb-4 p-0 ">
       <div className="container">
         <a className="navbar-brand" href="/">
