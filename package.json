@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install --prefix ./client && npm run build --prefix ./client && npm install",
+    "build": "npm install --prefix ./client && npm run build --prefix ./client && npm install && npm install --prefix ./server",
     "start": "npm start --prefix ./server",
     "dev": "npm run serve --prefix ./server"
   },
@@ -30,6 +30,9 @@
     "graphql-http": "^1.22.1",
     "http-errors": "^2.0.0",
     "mongoose": "^8.3.5",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0",
+    "rimraf": "^5.0.7"
   }
 }
