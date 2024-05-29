@@ -2,6 +2,9 @@
 import mongoose from "mongoose";
 import app from "./app"
 
+import dotenv from "dotenv";
+dotenv.config({ path: "../.env" });
+
 const port = process.env.PORT || 3000;
 
 const DB: string | undefined = process.env.MONGODB_URI;
